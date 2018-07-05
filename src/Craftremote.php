@@ -10,6 +10,7 @@
 
 namespace rias\craftremote;
 
+use rias\craftremote\models\Settings;
 use rias\craftremote\services\CraftremoteService as CraftremoteServiceService;
 
 use Craft;
@@ -69,24 +70,72 @@ class Craftremote extends Plugin
 
         Event::on(
             Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
+            Plugins::EVENT_BEFORE_SAVE_PLUGIN_SETTINGS,
             function (PluginEvent $event) {
                 if ($event->plugin === $this) {
+                    $settings = Craft::$app->request->getParam('settings');
+
+                    if (isset($settings['regenerate'])) {
+                        $user = Craft::$app->getUser()->getIdentity();
+                        $newKey = $this->generateApiToken();
+                        $this->setSettings(['apiKey' => $newKey]);
+
+                        Craft::$app->session->setNotice(Craft::t('craftremote', 'Generated a new API Key.'));
+                        Craft::$app->session->addFlash('apiKey', $newKey);
+
+                        return Craft::$app->response->redirect(Craft::$app->request->getUrl())->sendAndClose();
+                    }
                 }
             }
         );
-
-        Craft::info(
-            Craft::t(
-                'craftremote',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
-        );
     }
 
-    // Protected Methods
-    // =========================================================================
+    protected function createSettingsModel()
+    {
+        return new Settings();
+    }
+
+    protected function settingsHtml()
+    {
+        return Craft::$app->getView()->renderTemplate('craftremote/settings', [
+            'settings' => $this->getSettings()
+        ]);
+    }
+
+    /**
+     * Generates a new API token.
+     *
+     * @return string
+     */
+    private function generateApiToken(): string
+    {
+        return strtolower(static::key(40));
+    }
+
+    /**
+     * Generates a new license key.
+     *
+     * @param int $length
+     * @param string $extraChars
+     * @return string
+     */
+    private function key(int $length, string $extraChars = ''): string
+    {
+        $licenseKey = '';
+        $codeAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.$extraChars;
+        $alphabetLength = strlen($codeAlphabet);
+        $log = log($alphabetLength, 2);
+        $bytes = (int)($log / 8) + 1; // length in bytes
+        $bits = (int)$log + 1; // length in bits
+        $filter = (int)(1 << $bits) - 1; // set all lower bits to 1
+        for ($i = 0; $i < $length; $i++) {
+            do {
+                $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+                $rnd = $rnd & $filter; // discard irrelevant bits
+            } while ($rnd >= $alphabetLength);
+            $licenseKey .= $codeAlphabet[$rnd];
+        }
+        return $licenseKey;
+    }
 
 }

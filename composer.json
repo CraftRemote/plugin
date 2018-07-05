@@ -32,7 +32,7 @@
     "extra": {
         "name": "craftremote",
         "handle": "craftremote",
-        "hasCpSettings": false,
+        "hasCpSettings": true,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/Rias500/craftremote/master/CHANGELOG.md",
         "components": {

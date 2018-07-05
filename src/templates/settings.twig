@@ -1,0 +1,16 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% import "_includes/forms" as forms %}
+
+{% set newKey = craft.app.session.getFlash('apiKey') %}
+
+{{ forms.textField({
+    label: "API Token"|t('craftremote'),
+    instructions: newKey ? 'This is your new API key, **keep it someplace safe**.'|t('craftremote') : '',
+    name: 'apiKey',
+    value: settings.apiKey,
+    type: newKey ? 'text' : 'password',
+    readonly: 'readonly',
+}) }}
+
+<button type="submit" name="regenerate" class="btn submit">Generate a new API Token</button>

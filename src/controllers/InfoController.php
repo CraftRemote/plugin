@@ -43,6 +43,8 @@ class InfoController extends Controller
      */
     public function actionIndex()
     {
+        $this->requireApiToken();
+
         $updates = Craft::$app->updates->getUpdates(true);
 
         return $this->asJson([
@@ -50,5 +52,14 @@ class InfoController extends Controller
             'plugins' => (array) Craft::$app->getPlugins()->getAllPluginInfo(),
             'updates' => $updates->toArray(),
         ]);
+    }
+
+    protected function requireApiToken()
+    {
+        $headers = Craft::$app->request->getHeaders();
+
+        if (!isset($headers['authorization']) || $headers['authorization'] !== 'Bearer '.Craftremote::$plugin->settings->apiKey) {
+            throw new BadRequestHttpException('Valid API Key required');
+        }
     }
 }
