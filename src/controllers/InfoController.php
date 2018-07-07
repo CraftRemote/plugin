@@ -56,9 +56,9 @@ class InfoController extends Controller
 
     protected function requireApiToken()
     {
-        $headers = Craft::$app->request->getHeaders();
+        $key = Craft::$app->request->getParam('key');
 
-        if (!isset($headers['authorization']) || $headers['authorization'] !== 'Bearer '.Craftremote::$plugin->settings->apiKey) {
+        if ($key !== Craftremote::$plugin->settings->apiKey) {
             throw new BadRequestHttpException('Valid API Key required');
         }
     }
