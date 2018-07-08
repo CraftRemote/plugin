@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2018 Rias
  */
 
-namespace rias\craftremote\controllers;
+namespace craftremote\plugin\controllers;
 
-use rias\craftremote\Craftremote;
+use craftremote\plugin\Craftremote;
 
 use Craft;
 use craft\web\Controller;
@@ -18,7 +18,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\UnauthorizedHttpException;
 
 /**
- * @author    Rias
+ * @author    CraftRemote
  * @package   Craftremote
  * @since     1.0.0
  */

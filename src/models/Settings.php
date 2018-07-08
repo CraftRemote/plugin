@@ -1,6 +1,6 @@
 <?php
 
-namespace rias\craftremote\models;
+namespace craftremote\plugin\models;
 
 use craft\base\Model;
 

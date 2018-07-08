@@ -8,15 +8,15 @@
  * @copyright Copyright (c) 2018 Rias
  */
 
-namespace rias\craftremote\services;
+namespace craftremote\plugin\services;
 
-use rias\craftremote\Craftremote;
+use craftremote\plugin\Craftremote;
 
 use Craft;
 use craft\base\Component;
 
 /**
- * @author    Rias
+ * @author    CraftRemote
  * @package   Craftremote
  * @since     1.0.0
  */

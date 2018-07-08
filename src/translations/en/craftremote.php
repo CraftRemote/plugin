@@ -9,7 +9,7 @@
  */
 
 /**
- * @author    Rias
+ * @author    CraftRemote
  * @package   Craftremote
  * @since     1.0.0
  */

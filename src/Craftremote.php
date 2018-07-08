@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2018 Rias
  */
 
-namespace rias\craftremote;
+namespace craftremote\plugin;
 
-use rias\craftremote\models\Settings;
-use rias\craftremote\services\CraftremoteService as CraftremoteServiceService;
+use craftremote\plugin\models\Settings;
+use craftremote\plugin\services\CraftremoteService as CraftremoteServiceService;
 
 use Craft;
 use craft\base\Plugin;
@@ -25,7 +25,7 @@ use yii\base\Event;
 /**
  * Class Craftremote
  *
- * @author    Rias
+ * @author    CraftRemote
  * @package   Craftremote
  * @since     1.0.0
  *

@@ -1,5 +1,5 @@
 {
-    "name": "rias/craftremote",
+    "name": "craftremote/plugin",
     "description": "Remotely manage your Craft CMS installs.",
     "type": "craft-plugin",
     "version": "1.0.0",
@@ -11,8 +11,8 @@
         "craftremote"
     ],
     "support": {
-        "docs": "https://github.com/Rias500/craftremote/blob/master/README.md",
-        "issues": "https://github.com/Rias500/craftremote/issues"
+        "docs": "https://github.com/craftremote/plugin/blob/master/README.md",
+        "issues": "https://github.com/craftremote/plugin/issues"
     },
     "license": "MIT",
     "authors": [
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-          "rias\\craftremote\\": "src/"
+          "craftremote\\plugin\\": "src/"
         }
     },
     "extra": {
@@ -34,10 +34,10 @@
         "handle": "craftremote",
         "hasCpSettings": true,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/Rias500/craftremote/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/craftremote/plugin/master/CHANGELOG.md",
         "components": {
-            "craftremoteService": "rias\\craftremote\\services\\CraftremoteService"
+            "craftremoteService": "craftremote\\plugin\\services\\CraftremoteService"
         },
-        "class": "rias\\craftremote\\Craftremote"
+        "class": "craftremote\\plugin\\Craftremote"
     }
 }
