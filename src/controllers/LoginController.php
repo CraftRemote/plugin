@@ -11,18 +11,14 @@
 namespace craftremote\plugin\controllers;
 
 use craft\elements\User;
-use craft\helpers\App;
-use craftremote\plugin\Craftremote;
 
 use Craft;
-use craft\web\Controller;
 use yii\web\BadRequestHttpException;
-use yii\web\UnauthorizedHttpException;
 
 /**
  * @author    CraftRemote
  * @package   Craftremote
- * @since     1.0.0
+ * @since     1.1.0
  */
 class LoginController extends BaseController
 {

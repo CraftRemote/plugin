@@ -40,11 +40,11 @@ class InfoController extends BaseController
 
     /**
      * @return mixed
-     * @throws \yii\base\ExitException
+     * @throws BadRequestHttpException
      */
     public function actionIndex()
     {
-        //$this->requireApiToken();
+        $this->requireApiToken();
 
         $updates = Craft::$app->updates->getUpdates(true);
 
@@ -54,7 +54,6 @@ class InfoController extends BaseController
             'updates' => $updates->toArray(),
         ];
 
-        Craft::dd($data);
         return $this->asJson($data);
     }
 }
