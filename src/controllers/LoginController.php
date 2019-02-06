@@ -10,6 +10,8 @@
 
 namespace craftremote\plugin\controllers;
 
+use craft\elements\User;
+use craft\helpers\App;
 use craftremote\plugin\Craftremote;
 
 use Craft;
@@ -22,9 +24,8 @@ use yii\web\UnauthorizedHttpException;
  * @package   Craftremote
  * @since     1.0.0
  */
-class InfoController extends BaseController
+class LoginController extends BaseController
 {
-
     // Protected Properties
     // =========================================================================
 
@@ -40,21 +41,15 @@ class InfoController extends BaseController
 
     /**
      * @return mixed
-     * @throws \yii\base\ExitException
+     * @throws BadRequestHttpException
      */
     public function actionIndex()
     {
-        //$this->requireApiToken();
+        $this->requireApiToken();
 
-        $updates = Craft::$app->updates->getUpdates(true);
+        $user = User::find()->admin()->one();
+        Craft::$app->getUser()->loginByUserId($user->id);
 
-        $data = [
-            'version' => Craft::$app->getVersion(),
-            'plugins' => (array) Craft::$app->getPlugins()->getAllPluginInfo(),
-            'updates' => $updates->toArray(),
-        ];
-
-        Craft::dd($data);
-        return $this->asJson($data);
+        return $this->redirect(Craft::$app->getConfig()->getGeneral()->baseCpUrl . '/' . Craft::$app->getConfig()->getGeneral()->cpTrigger);
     }
 }

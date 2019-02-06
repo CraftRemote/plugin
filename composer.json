@@ -2,7 +2,6 @@
     "name": "craftremote/plugin",
     "description": "Remotely manage your Craft CMS installs.",
     "type": "craft-plugin",
-    "version": "1.0.0",
     "keywords": [
         "craft",
         "cms",

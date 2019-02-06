@@ -30,6 +30,7 @@ use yii\base\Event;
  * @since     1.0.0
  *
  * @property  CraftremoteServiceService $craftremoteService
+ * @property Settings settings
  */
 class Craftremote extends Plugin
 {
@@ -65,6 +66,7 @@ class Craftremote extends Plugin
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
                 $event->rules['craftremote/info'] = 'craftremote/info/index';
+                $event->rules['craftremote/login'] = 'craftremote/login/index';
             }
         );
 
