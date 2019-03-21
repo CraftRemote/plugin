@@ -4,13 +4,15 @@
 
 {% set newKey = craft.app.session.getFlash('apiKey') %}
 
-{{ forms.textField({
-    label: "API Token"|t('craftremote'),
-    instructions: newKey ? 'This is your new API key, **keep it someplace safe**.'|t('craftremote') : '',
-    name: 'apiKey',
-    value: settings.apiKey,
-    type: newKey ? 'text' : 'password',
-    readonly: 'readonly',
-}) }}
+<div>
+    {{ forms.textField({
+        label: "API Token"|t('craftremote'),
+        instructions: newKey ? 'This is your new API key, **keep it someplace safe** and make sure to save the settings.'|t('craftremote') : '',
+        name: 'apiKey',
+        value: newKey ?? settings.apiKey,
+        type: newKey ? 'text' : 'password',
+        readonly: 'readonly',
+    }) }}
 
-<button type="submit" name="regenerate" class="btn submit">Generate a new API Token</button>
+    <button type="submit" name="regenerate" class="btn submit">Generate a new API Token</button>
+</div>

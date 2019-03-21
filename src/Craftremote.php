@@ -74,19 +74,15 @@ class Craftremote extends Plugin
             Plugins::class,
             Plugins::EVENT_BEFORE_SAVE_PLUGIN_SETTINGS,
             function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                    $settings = Craft::$app->request->getParam('settings');
+                $settings = Craft::$app->request->getParam('settings');
+                if ($event->plugin === $this && isset($settings['regenerate'])) {
+                    $user = Craft::$app->getUser()->getIdentity();
+                    $newKey = $this->generateApiToken();
 
-                    if (isset($settings['regenerate'])) {
-                        $user = Craft::$app->getUser()->getIdentity();
-                        $newKey = $this->generateApiToken();
-                        $this->setSettings(['apiKey' => $newKey]);
+                    Craft::$app->session->setNotice(Craft::t('craftremote', 'Generated a new API Key. Make sure to save your settings.'));
+                    Craft::$app->session->setFlash('apiKey', $newKey);
 
-                        Craft::$app->session->setNotice(Craft::t('craftremote', 'Generated a new API Key.'));
-                        Craft::$app->session->addFlash('apiKey', $newKey);
-
-                        return Craft::$app->response->redirect(Craft::$app->request->getUrl())->sendAndClose();
-                    }
+                    return Craft::$app->response->redirect(Craft::$app->request->getUrl())->sendAndClose();
                 }
             }
         );
